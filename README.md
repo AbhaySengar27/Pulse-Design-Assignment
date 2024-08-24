@@ -1,4 +1,4 @@
-# Pulse Data Aggregator
+# Pulse Design Assignment
 
 This project is a basic setup to aggregate customer data from Slack, Jira, and Zendesk, converting this data into actionable insights using Node.js.
 
