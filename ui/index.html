@@ -1,1 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Insights Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        h2 {
+            text-align: center;
+            color: #4A4A8C;
+            margin-bottom: 20px;
+        }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-bar, .filter {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .search-bar input, .filter select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .expand-collapse {
+            flex: 0.3;
+        }
+        .expand-collapse button {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background-color: #4A4A8C;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .expand-collapse button:hover {
+            background-color: #3a3a6c;
+        }
+        .insight {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid #4A4A8C;
+        }
+        .insight:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .insight h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #4A4A8C;
+        }
+        .insight-details {
+            display: none;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 10px;
+            color: #666;
+        }
+        .insight-details p {
+            margin: 5px 0;
+        }
+        .insight-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .insight-details ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        .insight-details ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #4A4A8C;
+        }
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 8px;
+            margin-top: 10px;
+        }
+        .progress-bar div {
+            height: 100%;
+            background-color: #4A4A8C;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .dark-mode-toggle input {
+            display: none;
+        }
+        .dark-mode-toggle label {
+            background-color: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+        }
+        .dark-mode-toggle label::after {
+            content: '';
+            background-color: #fff;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        .dark-mode-toggle input:checked + label {
+            background-color: #4A4A8C;
+        }
+        .dark-mode-toggle input:checked + label::after {
+            transform: translateX(26px);
+        }
+        body.dark-mode {
+            background-color: #1e1e2e;
+            color: #f4f4f9;
+        }
+        body.dark-mode .insight {
+            background-color: #2e2e4e;
+            border-left-color: #6a6aff;
+        }
+        body.dark-mode .insight h3 {
+            color: #c4c4ff;
+        }
+        body.dark-mode .insight-details ul li::before {
+            color: #6a6aff;
+        }
+        body.dark-mode .progress-bar div {
+            background-color: #6a6aff;
+        }
+    </style>
+</head>
+<body>
 
+<h2>Insights Dashboard</h2>
+
+<div class="toolbar">
+    <div class="search-bar">
+        <input type="text" placeholder="Search insights...">
+    </div>
+    <div class="filter">
+        <select>
+            <option value="impact">Sort by Impact</option>
+            <option value="date">Sort by Date</option>
+            <option value="source">Sort by Source</option>
+        </select>
+    </div>
+    <div class="expand-collapse">
+        <button onclick="toggleAll(true)">Expand All</button>
+        <button onclick="toggleAll(false)">Collapse All</button>
+    </div>
+</div>
+
+<div class="insight" onclick="toggleDetails(this)">
+    <h3>Lack of Advanced Email Automation Features</h3>
+    <div class="insight-details">
+        <p>Derived from:</p>
+        <ul>
+            <li>10 Slack conversations</li>
+            <li>5 Jira tickets</li>
+            <li>20 Zendesk requests</li>
+        </ul>
+        <p>Business Impact: Increase ARR by improving this feature for 20 customers.</p>
+        <div class="progress-bar">
+            <div style="width: 70%;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="insight" onclick="toggleDetails(this)">
+    <h3>Need for Better Customer Support</h3>
+    <div class="insight-details">
+        <p>Derived from:</p>
+        <ul>
+            <li>8 Slack conversations</li>
+            <li>10 Jira tickets</li>
+            <li>15 Zendesk requests</li>
+        </ul>
+        <p>Business Impact: Reduce churn by addressing common support issues.</p>
+        <div class="progress-bar">
+            <div style="width: 80%;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="dark-mode-toggle">
+    <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()">
+    <label for="dark-mode-toggle"></label>
+</div>
+
+<script>
+    function toggleDetails(element) {
+        const details = element.querySelector('.insight-details');
+        details.style.display = details.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleAll(expand) {
+        document.querySelectorAll('.insight-details').forEach(details => {
+            details.style.display = expand ? 'block' : 'none';
+        });
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+
+</body>
+</html>
